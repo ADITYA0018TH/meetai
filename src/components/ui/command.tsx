@@ -17,7 +17,6 @@ import {
   Drawer,
   DrawerContent,
   DrawerHeader,
-  DrawerFooter,
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer"
@@ -38,19 +37,25 @@ function Command({
   )
 }
 
-function CommandDialog({
+type CommandDialogBaseProps = {
+  title?: string
+  description?: string
+  className?: string
+  showCloseButton?: boolean
+  shouldFilter?: boolean
+}
+
+function CommandDialogBase({
   title = "Command Palette",
   description = "Search for a command to run...",
   children,
   className,
   showCloseButton = true,
+  shouldFilter = true,
   ...props
-}: React.ComponentProps<typeof Dialog> & {
-  title?: string
-  description?: string
-  className?: string
-  showCloseButton?: boolean
-}) {
+}: React.PropsWithChildren<
+  React.ComponentProps<typeof Dialog> & CommandDialogBaseProps
+>) {
   return (
     <Dialog {...props}>
       <DialogHeader className="sr-only">
@@ -61,7 +66,10 @@ function CommandDialog({
         className={cn("overflow-hidden p-0", className)}
         showCloseButton={showCloseButton}
       >
-        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <Command
+          shouldFilter={shouldFilter}
+          className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[data-slot=command-input-wrapper]]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+        >
           {children}
         </Command>
       </DialogContent>
@@ -69,55 +77,48 @@ function CommandDialog({
   )
 }
 
-function CommandResponsiveDialog({
+function CommandDrawerBase({
   title = "Command Palette",
   description = "Search for a command to run...",
   children,
+  shouldFilter = true,
   className,
-  showCloseButton = true,
   ...props
-}: React.ComponentProps<typeof Dialog> & {
-  title?: string
-  description?: string
-  className?: string
-  showCloseButton?: boolean
-}) {
-
-  const isMobile = useIsMobile();
-
-  if (isMobile) {
-    return (
-      <Drawer {...props}>
-        <DrawerContent className="overflow-hidden p-0">
-          <DrawerHeader className="sr-only">
-            <DrawerTitle>{title}</DrawerTitle>
-            <DrawerDescription>{description}</DrawerDescription>
-          </DrawerHeader>
-          <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
-            {children}
-          </Command>
-        </DrawerContent>
-      </Drawer>
-    );
-  };
-
+}: React.PropsWithChildren<
+  React.ComponentProps<typeof Drawer> & CommandDialogBaseProps
+>) {
   return (
-    <Dialog {...props}>
-      <DialogHeader className="sr-only">
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription>{description}</DialogDescription>
-      </DialogHeader>
-      <DialogContent
-        className={cn("overflow-hidden p-0", className)}
-        showCloseButton={showCloseButton}
-      >
-        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+    <Drawer {...props}>
+      <DrawerContent className={cn("overflow-hidden p-0", className)}>
+        <DrawerHeader className="sr-only">
+          <DrawerTitle>{title}</DrawerTitle>
+          <DrawerDescription>{description}</DrawerDescription>
+        </DrawerHeader>
+        <Command
+          shouldFilter={shouldFilter}
+          className="[&_[cmdk-group-heading]]:text-muted-foreground [&_[data-slot=command-input-wrapper]]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+        >
           {children}
         </Command>
-      </DialogContent>
-    </Dialog>
-  );
-};
+      </DrawerContent>
+    </Drawer>
+  )
+}
+
+function CommandDialog(props: React.ComponentProps<typeof CommandDialogBase>) {
+  return <CommandDialogBase {...props} />
+}
+
+function CommandResponsiveDialog(
+  props: React.ComponentProps<typeof CommandDialogBase>
+) {
+  const isMobile = useIsMobile()
+  return isMobile ? (
+    <CommandDrawerBase {...props} />
+  ) : (
+    <CommandDialogBase {...props} />
+  )
+}
 
 function CommandInput({
   className,
@@ -157,9 +158,9 @@ function CommandList({
   )
 }
 
-function CommandEmpty({
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.Empty>) {
+function CommandEmpty(
+  props: React.ComponentProps<typeof CommandPrimitive.Empty>
+) {
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
