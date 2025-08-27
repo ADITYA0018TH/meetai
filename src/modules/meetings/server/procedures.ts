@@ -90,7 +90,6 @@ export const meetingsRouter = createTRPCRouter({
                 })
                 .returning();
 
-            // TODO: Create Stream Call, Upsert Stream Users
             const call = streamVideo.video.call("default", createdMeeting.id);
             await call.create({
                 data: {
@@ -118,24 +117,24 @@ export const meetingsRouter = createTRPCRouter({
                 .from(agents)
                 .where(eq(agents.id, createdMeeting.agentId));
 
-                if (!existingAgent) {
-                    throw new TRPCError({
-                        code: "NOT_FOUND",
-                        message: "Agent not found",
-                    });
-                }
+            if (!existingAgent) {
+                throw new TRPCError({
+                    code: "NOT_FOUND",
+                    message: "Agent not found",
+                });
+            }
 
-                await streamVideo.upsertUsers([
-                    {
-                        id: existingAgent.id,
-                        name: existingAgent.name,
-                        role: "user",
-                        image: generateAvatarUri({
-                            seed: existingAgent.name,
-                            variant: "botttsNeutral",
-                        }),
-                    },
-                ]);
+            await streamVideo.upsertUsers([
+                {
+                    id: existingAgent.id,
+                    name: existingAgent.name,
+                    role: "user",
+                    image: generateAvatarUri({
+                        seed: existingAgent.name,
+                        variant: "botttsNeutral",
+                    }),
+                },
+            ]);
 
             return createdMeeting;
         }),
