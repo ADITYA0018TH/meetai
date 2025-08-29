@@ -89,7 +89,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
                         meetingId={meetingId}
                         onCancelMeeting={() => { }}
                         isCancelling={false}
-                    />
+                    /> 
                 )}
             </div>
         </>
