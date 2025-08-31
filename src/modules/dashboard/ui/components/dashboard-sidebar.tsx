@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { DashboardUserButton } from "@/modules/dashboard/ui/components/dashboard-user-button";
 import { usePathname } from "next/navigation";
 import { Separator } from "@radix-ui/react-context-menu";
 import { BotIcon, Star, StarIcon, VideoIcon } from "lucide-react";
@@ -18,6 +17,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { DashboardTrial } from "./dashboard-trial";
+import { DashboardUserButton } from "@/modules/dashboard/ui/components/dashboard-user-button";
 
 const firstSection = [
     {
@@ -110,6 +111,7 @@ export const DashboardSidebar = () => {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter className="text-white">
+                <DashboardTrial />
                 <DashboardUserButton />
             </SidebarFooter>
         </Sidebar>
