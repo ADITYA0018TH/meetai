@@ -21,6 +21,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { useRouter } from "next/navigation";
 
 interface AgentFormProps {
     onSuccess?: () => void;
@@ -34,34 +35,39 @@ export const AgentForm = ({
     initialValues,
 }: AgentFormProps) => {
     const trpc = useTRPC();
+    const router = useRouter();
     const queryClient = useQueryClient();
 
     const createAgent = useMutation(
         trpc.agents.create.mutationOptions({
-            onSuccess: async() => {
+            onSuccess: async () => {
                 await queryClient.invalidateQueries(
                     trpc.agents.getMany.queryOptions({}),
                 );
-                // TODO: Invalidate free tier usage
-                
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
+                );
+
                 onSuccess?.();
             },
             onError: (error) => {
                 toast.error(error.message);
 
-                // TODO: Check if error code is "FORBIDDEN", redirect to "/upgrade"
+                if (error.data?.code === "FORBIDDEN") {
+                    router.push("/upgrade");
+                }
             },
         }),
     );
 
     const updateAgent = useMutation(
         trpc.agents.update.mutationOptions({
-            onSuccess: async() => {
+            onSuccess: async () => {
                 await queryClient.invalidateQueries(
                     trpc.agents.getMany.queryOptions({}),
                 );
 
-                if(initialValues?.id) {
+                if (initialValues?.id) {
                     await queryClient.invalidateQueries(
                         trpc.agents.getOne.queryOptions({ id: initialValues.id }),
                     );
@@ -132,12 +138,12 @@ export const AgentForm = ({
                 <div className="flex justify-between gap-x-2">
                     {onCancel && (
                         <Button
-                        variant="ghost"
-                        disabled={isPending}
-                        type="button"
-                        onClick={() => onCancel()}
+                            variant="ghost"
+                            disabled={isPending}
+                            type="button"
+                            onClick={() => onCancel()}
                         >
-                        Cancel
+                            Cancel
                         </Button>
                     )}
                     <Button disabled={isPending} type="submit">
