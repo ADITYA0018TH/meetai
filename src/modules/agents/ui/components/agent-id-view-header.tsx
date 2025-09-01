@@ -16,8 +16,6 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Chevron } from "react-day-picker";
-import { fr } from "date-fns/locale";
 
 interface Props {
     agentId: string;
