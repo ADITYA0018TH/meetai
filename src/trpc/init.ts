@@ -6,7 +6,6 @@ import { MAX_FREE_AGENTS, MAX_FREE_MEETINGS } from '@/modules/premium/constants'
 import { initTRPC, TRPCError } from '@trpc/server';
 import { count, eq } from 'drizzle-orm';
 import { headers } from 'next/headers';
-import { unauthorized } from 'next/navigation';
 import { cache } from 'react';
 export const createTRPCContext = cache(async () => {
     /**

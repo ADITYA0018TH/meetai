@@ -5,7 +5,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { Separator } from "@radix-ui/react-context-menu";
-import { BotIcon, Star, StarIcon, VideoIcon } from "lucide-react";
+import { BotIcon, StarIcon, VideoIcon } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
