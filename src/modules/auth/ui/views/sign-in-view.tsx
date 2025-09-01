@@ -103,7 +103,7 @@ export const SignInView = () => {
                                             name="email"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Email</FormLabel>
+                                                    <FormLabel className="font-bold">Email</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             type="email"
@@ -122,7 +122,7 @@ export const SignInView = () => {
                                             name="password"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Password</FormLabel>
+                                                    <FormLabel className="font-bold">Password</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             type="password"
@@ -141,7 +141,7 @@ export const SignInView = () => {
                                             <AlertTitle>{error}</AlertTitle>
                                         </Alert>
                                     )}
-                                    <Button disabled={pending} type="submit" className="w-full">
+                                    <Button disabled={pending} type="submit" className="w-full font-bold">
                                         Sign In
                                     </Button>
                                     <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:items-center after:border-t">
@@ -161,7 +161,7 @@ export const SignInView = () => {
                                     </div>
                                     <div className="text-center text-sm">
                                         Don&apos;t have an account?{" "}
-                                        <Link href="/sign-up" className="underline underline-offset-4">
+                                        <Link href="/sign-up" className="underline underline-offset-4 font-bold">
                                             Sign Up
                                         </Link>
                                     </div>
