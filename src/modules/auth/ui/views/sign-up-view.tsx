@@ -112,7 +112,7 @@ export const SignUpView = () => {
                                             name="name"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Name</FormLabel>
+                                                    <FormLabel className="font-bold">Name</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             type="text"
@@ -131,7 +131,7 @@ export const SignUpView = () => {
                                             name="email"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Email</FormLabel>
+                                                    <FormLabel className="font-bold">Email</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             type="email"
@@ -150,7 +150,7 @@ export const SignUpView = () => {
                                             name="password"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Password</FormLabel>
+                                                    <FormLabel className="font-bold">Password</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             type="password"
@@ -169,7 +169,7 @@ export const SignUpView = () => {
                                             name="confirmPassword"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Confirm Password</FormLabel>
+                                                    <FormLabel className="font-bold">Confirm Password</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             type="password"
@@ -188,7 +188,7 @@ export const SignUpView = () => {
                                             <AlertTitle>{error}</AlertTitle>
                                         </Alert>
                                     )}
-                                    <Button disabled={pending} type="submit" className="w-full">
+                                    <Button disabled={pending} type="submit" className="w-full font-bold">
                                         Sign In
                                     </Button>
                                     <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:items-center after:border-t">
@@ -208,7 +208,7 @@ export const SignUpView = () => {
                                     </div>
                                     <div className="text-center text-sm">
                                         Already have an account?{" "}
-                                        <Link href="/sign-in" className="underline underline-offset-4">
+                                        <Link href="/sign-in" className="underline underline-offset-4 font-bold">
                                             Sign In
                                         </Link>
                                     </div>
@@ -230,7 +230,7 @@ export const SignUpView = () => {
                 </Card>
                 <br />
                 <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-                    By clicking continue, you agree to our <a href="#">Terms of Services</a> and <a href="#">Privacy Policy</a>
+                    By clicking continue, you agree to our <a href="#" className="font-bold">Terms of Services</a> and <a href="#" className="font-bold">Privacy Policy</a>
                 </div>
             </div>
         </div>
