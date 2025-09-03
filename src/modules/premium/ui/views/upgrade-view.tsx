@@ -25,7 +25,7 @@ export const UpgradeView = () => {
             <div className="mt-4 flex-1 flex flex-col gap-y-10 items-center">
                 <h5 className="font-medium text-2xl md:text-3xl">
                     You are on the{" "}
-                    <span className="font-semibold text-primary">
+                    <span className="font-bold text-primary">
                         {currentSubscription?.name ?? "Free"}
                     </span>{" "}
                     plan

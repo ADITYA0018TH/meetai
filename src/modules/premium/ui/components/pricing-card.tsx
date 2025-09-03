@@ -113,7 +113,7 @@ export const PricingCard = ({
                 <Separator className="opacity-10 text-[#5D6B68]" />
             </div>
             <Button
-                className="w-full"
+                className="w-full font-bold"
                 size="lg"
                 variant={variant === "highlighted" ? "default" : "outline"}
                 onClick={onClick}
@@ -121,7 +121,7 @@ export const PricingCard = ({
                 {buttonText}
             </Button>
             <div className="flexflex-col gap-y-2 mt-6">
-                <p className="font-medium uppercase">Features</p>
+                <p className="font-bold uppercase">Features</p>
                 <ul
                     className={cn(
                         "flex flex-col gap-y-2.5",
